@@ -33,11 +33,10 @@ export function SplitText({
 
     gsap.fromTo(
       words,
-      { y: "100%", opacity: 0, filter: "blur(4px)" },
+      { y: "100%", opacity: 0 },
       {
         y: "0%",
         opacity: 1,
-        filter: "blur(0px)",
         duration: 0.8,
         stagger: splitBy === "words" ? 0.06 : 0.03,
         delay,
@@ -45,7 +44,7 @@ export function SplitText({
         scrollTrigger: {
           trigger: ref.current,
           start: "top 85%",
-          toggleActions: "play none none reverse",
+          once: true,
         },
       }
     );

@@ -8,14 +8,12 @@ export function Footer() {
   };
 
   return (
-    <footer className="border-t border-white/5 px-6 py-8 md:px-16 lg:px-24">
+    <footer className="border-t border-white/5 px-6 py-8 md:px-16 lg:px-24" data-reveal>
       <div className="mx-auto flex max-w-6xl flex-col items-center justify-between gap-4 md:flex-row">
         <p className="section-label text-text-muted">
-          © {siteConfig.year} {siteConfig.displayName}
+          © {siteConfig.year} {siteConfig.shortName}
         </p>
-        <p className="section-label text-text-muted">
-          BUILT WITH REACT / THREE.JS / GSAP
-        </p>
+        <p className="section-label text-text-muted">BUILT WITH REACT / THREE.JS / GSAP</p>
         <button
           type="button"
           onClick={scrollToTop}

@@ -1,17 +1,15 @@
 "use client";
 
 import { useEffect, type ReactNode } from "react";
+import { usePathname } from "next/navigation";
 import Lenis from "lenis";
-import { registerGSAP, ScrollTrigger } from "@/lib/animations/gsap";
+import { gsap, registerGSAP, ScrollTrigger } from "@/lib/animations/gsap";
 import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 import { useScrollContext } from "@/lib/context/ScrollContext";
 
-interface SmoothScrollProps {
-  children: ReactNode;
-}
-
-export function SmoothScroll({ children }: SmoothScrollProps) {
+export function SmoothScroll({ children }: { children: ReactNode }) {
   const reducedMotion = useReducedMotion();
+  const pathname = usePathname();
   const { heroProgress, mouseX, mouseY, activeSection } = useScrollContext();
 
   useEffect(() => {
@@ -19,18 +17,18 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
 
     registerGSAP();
     const lenis = new Lenis({
-      duration: 1.2,
-      easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+      duration: 1.15,
+      easing: (t) => 1 - Math.pow(1 - t, 4),
       smoothWheel: true,
     });
 
     lenis.on("scroll", ScrollTrigger.update);
 
-    const raf = (time: number) => {
-      lenis.raf(time);
-      requestAnimationFrame(raf);
+    const ticker = (time: number) => {
+      lenis.raf(time * 1000);
     };
-    requestAnimationFrame(raf);
+    gsap.ticker.add(ticker);
+    gsap.ticker.lagSmoothing(0);
 
     const onMouseMove = (e: MouseEvent) => {
       mouseX.current = (e.clientX / window.innerWidth) * 2 - 1;
@@ -39,8 +37,9 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
     window.addEventListener("mousemove", onMouseMove);
 
     const heroEl = document.getElementById("hero");
+    let heroTrigger: ScrollTrigger | undefined;
     if (heroEl) {
-      ScrollTrigger.create({
+      heroTrigger = ScrollTrigger.create({
         trigger: heroEl,
         start: "top top",
         end: "bottom top",
@@ -64,13 +63,27 @@ export function SmoothScroll({ children }: SmoothScrollProps) {
 
     document.querySelectorAll("section[id]").forEach((el) => sectionObserver.observe(el));
 
+    if (window.location.hash) {
+      const target = document.querySelector(window.location.hash);
+      if (target) {
+        requestAnimationFrame(() => {
+          lenis.scrollTo(target as HTMLElement, { offset: 0, immediate: false });
+        });
+      }
+    }
+
+    const refresh = window.setTimeout(() => ScrollTrigger.refresh(), 80);
+
     return () => {
+      window.clearTimeout(refresh);
+      gsap.ticker.remove(ticker);
+      gsap.ticker.lagSmoothing(500, 33);
       lenis.destroy();
       window.removeEventListener("mousemove", onMouseMove);
       sectionObserver.disconnect();
-      ScrollTrigger.getAll().forEach((t) => t.kill());
+      heroTrigger?.kill();
     };
-  }, [reducedMotion, heroProgress, mouseX, mouseY, activeSection]);
+  }, [reducedMotion, pathname, heroProgress, mouseX, mouseY, activeSection]);
 
   return <>{children}</>;
 }

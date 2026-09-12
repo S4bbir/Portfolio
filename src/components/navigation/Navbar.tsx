@@ -1,11 +1,14 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { navigation } from "@/config/site";
+import { usePathname, useRouter } from "next/navigation";
+import { navigation, siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils/cn";
 
 export function Navbar({ visible }: { visible: boolean }) {
   const [scrolled, setScrolled] = useState(false);
+  const pathname = usePathname();
+  const router = useRouter();
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 50);
@@ -13,13 +16,23 @@ export function Navbar({ visible }: { visible: boolean }) {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
+  const goHome = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    if (pathname === "/") {
+      document.getElementById("hero")?.scrollIntoView({ behavior: "smooth" });
+    } else {
+      router.push("/");
+    }
+  };
+
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault();
-    const id = href.replace("#", "");
-    const el = document.getElementById(id);
-    if (el) {
-      el.scrollIntoView({ behavior: "smooth" });
+    const id = href.replace("/#", "").replace("#", "");
+    if (pathname === "/") {
+      document.getElementById(id)?.scrollIntoView({ behavior: "smooth" });
+      return;
     }
+    router.push(`/#${id}`);
   };
 
   return (
@@ -36,17 +49,21 @@ export function Navbar({ visible }: { visible: boolean }) {
         )}
         aria-label="Main navigation"
       >
-        {navigation.map(({ label, href }, i) => (
+        <a
+          href="/"
+          onClick={goHome}
+          className="interactive rounded-full px-4 py-2 font-display text-sm tracking-[0.08em] text-text-primary"
+          data-cursor="open"
+          aria-label="Sabbir home"
+        >
+          {siteConfig.shortName}
+        </a>
+        {navigation.map(({ label, href }) => (
           <a
             key={href}
             href={href}
             onClick={(e) => handleClick(e, href)}
-            className={cn(
-              "interactive rounded-full px-4 py-2 text-[10px] tracking-[0.2em] transition-colors duration-300",
-              i === 0
-                ? "text-text-primary font-medium"
-                : "text-text-muted hover:text-text-primary"
-            )}
+            className="interactive rounded-full px-4 py-2 text-[10px] tracking-[0.2em] text-text-muted transition-colors duration-300 hover:text-text-primary"
             data-cursor="open"
           >
             {label}

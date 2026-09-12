@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
-import Image from "next/image";
-import Link from "next/link";
 import { projects } from "@/config/projects";
+import { siteConfig } from "@/config/site";
 import { ProjectCaseStudy } from "@/components/projects/ProjectCaseStudy";
 
 interface PageProps {
@@ -17,7 +16,7 @@ export async function generateMetadata({ params }: PageProps) {
   const project = projects.find((p) => p.slug === slug);
   if (!project) return { title: "Project Not Found" };
   return {
-    title: `${project.title} — S4BBIR`,
+    title: `${project.title} — ${siteConfig.shortName}`,
     description: project.description,
   };
 }

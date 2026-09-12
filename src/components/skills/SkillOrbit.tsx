@@ -1,7 +1,8 @@
 "use client";
 
-import { useState, useMemo } from "react";
+import { useMemo, useState } from "react";
 import { skills } from "@/config/projects";
+import { siteConfig } from "@/config/site";
 import { useDeviceType } from "@/lib/hooks/useIsMobile";
 import type { Skill } from "@/types";
 
@@ -29,15 +30,15 @@ export function SkillOrbit() {
 
   return (
     <div className="relative mx-auto flex h-[500px] w-full max-w-2xl items-center justify-center md:h-[600px]">
-      <div className="absolute inset-0 flex items-center justify-center">
-        <div className="h-48 w-48 rounded-full border border-white/5 md:h-64 md:w-64" />
-        <div className="absolute h-72 w-72 rounded-full border border-white/[0.03] md:h-96 md:w-96" />
+      <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+        <div className="orbit-ring h-48 w-48 rounded-full border border-white/5 md:h-64 md:w-64" />
+        <div className="orbit-ring-slow absolute h-72 w-72 rounded-full border border-dashed border-white/[0.06] md:h-96 md:w-96" />
       </div>
 
       <div className="relative z-10 text-center">
-        <p className="font-display text-2xl tracking-wider md:text-3xl">S4BBIR</p>
+        <p className="font-display text-2xl tracking-wider md:text-3xl">{siteConfig.shortName}</p>
         {active && (
-          <div className="mt-4 animate-in fade-in duration-300">
+          <div className="mt-4">
             <p className="section-label text-accent-blue">{CATEGORY_LABELS[active.category]}</p>
             <p className="mt-1 text-lg text-text-primary">{active.name}</p>
             <p className="mt-1 max-w-xs text-sm text-text-muted">{active.description}</p>
@@ -64,9 +65,7 @@ export function SkillOrbit() {
               setHovered(skill.name);
               setActive(skill);
             }}
-            onMouseLeave={() => {
-              setHovered(null);
-            }}
+            onMouseLeave={() => setHovered(null)}
             onFocus={() => setActive(skill)}
             aria-label={`${skill.name} — ${CATEGORY_LABELS[skill.category]}`}
           >
