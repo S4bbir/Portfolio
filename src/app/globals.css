@@ -1,0 +1,190 @@
+@import "tailwindcss";
+
+:root {
+  --bg-primary: #050505;
+  --bg-secondary: #0a0a0f;
+  --bg-surface: #101016;
+  --text-primary: #f5f5f5;
+  --text-secondary: #a0a0aa;
+  --text-muted: #666670;
+  --accent-blue: #4d7cff;
+  --accent-violet: #8b5cf6;
+  --accent-glow: #5b8cff;
+  --background: var(--bg-primary);
+  --foreground: var(--text-primary);
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-bg-primary: var(--bg-primary);
+  --color-bg-secondary: var(--bg-secondary);
+  --color-bg-surface: var(--bg-surface);
+  --color-text-primary: var(--text-primary);
+  --color-text-secondary: var(--text-secondary);
+  --color-text-muted: var(--text-muted);
+  --color-accent-blue: var(--accent-blue);
+  --color-accent-violet: var(--accent-violet);
+  --color-accent-glow: var(--accent-glow);
+  --font-sans: var(--font-inter);
+  --font-display: var(--font-playfair);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis.lenis-smooth {
+  scroll-behavior: auto !important;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-stopped {
+  overflow: hidden;
+}
+
+body {
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  overflow-x: hidden;
+  cursor: none;
+}
+
+@media (max-width: 768px), (hover: none) {
+  body {
+    cursor: auto;
+  }
+}
+
+::selection {
+  background: rgba(77, 124, 255, 0.3);
+  color: var(--text-primary);
+}
+
+.font-display {
+  font-family: var(--font-playfair), Georgia, serif;
+}
+
+.text-gradient {
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-violet));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.section-label {
+  font-size: 0.65rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.glass-nav {
+  background: rgba(10, 10, 15, 0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.magnetic-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  transition: transform 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.interactive {
+  cursor: none;
+}
+
+@media (max-width: 768px), (hover: none) {
+  .interactive {
+    cursor: pointer;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 3px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+.hero-vignette {
+  background: radial-gradient(
+    ellipse 80% 60% at 50% 50%,
+    transparent 0%,
+    rgba(5, 5, 5, 0.4) 60%,
+    rgba(5, 5, 5, 0.9) 100%
+  );
+}
+
+.hero-glow {
+  background: radial-gradient(
+    ellipse 50% 40% at 50% 45%,
+    rgba(77, 124, 255, 0.08) 0%,
+    transparent 70%
+  );
+}
+
+.timeline-line {
+  background: linear-gradient(
+    to bottom,
+    var(--accent-blue) var(--progress, 0%),
+    rgba(102, 102, 112, 0.3) var(--progress, 0%)
+  );
+}
+
+.skill-orbit-item {
+  transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+    opacity 0.3s ease;
+}
+
+.experiment-card {
+  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+}
+
+.experiment-card:hover {
+  transform: scale(1.02);
+}
+
+.scroll-line {
+  width: 1px;
+  background: linear-gradient(to bottom, var(--accent-blue), transparent);
+  transform-origin: top;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}

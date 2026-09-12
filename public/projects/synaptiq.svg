@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="800" height="600" viewBox="0 0 800 600">
+  <defs>
+    <linearGradient id="bg" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#0A0A14"/>
+      <stop offset="100%" style="stop-color:#101028"/>
+    </linearGradient>
+    <radialGradient id="glow" cx="50%" cy="40%" r="50%">
+      <stop offset="0%" style="stop-color:#4D7CFF;stop-opacity:0.3"/>
+      <stop offset="100%" style="stop-color:#4D7CFF;stop-opacity:0"/>
+    </radialGradient>
+  </defs>
+  <rect width="800" height="600" fill="url(#bg)"/>
+  <rect width="800" height="600" fill="url(#glow)"/>
+  <text x="400" y="280" text-anchor="middle" fill="#F5F5F5" font-family="Georgia, serif" font-size="48">SynaptiQ</text>
+  <text x="400" y="330" text-anchor="middle" fill="#4D7CFF" font-family="system-ui, sans-serif" font-size="14" letter-spacing="4">AI RESEARCH PLATFORM</text>
+</svg>
