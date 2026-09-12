@@ -11,14 +11,6 @@ Immersive personal portfolio built with Next.js, Three.js, GSAP, and Lenis.
 - **Tailwind CSS v4** — styling
 - **TypeScript** — type safety
 
-## Getting Started
-
-```bash
-npm install
-npm run dev
-```
-
-Open [http://localhost:3000](http://localhost:3000).
 
 ## Configuration
 
