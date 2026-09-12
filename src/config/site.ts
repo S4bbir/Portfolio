@@ -2,12 +2,14 @@ import type { Education, Experience, NavItem, Section, SocialLink } from "@/type
 
 export const siteConfig = {
   name: "Sabbir Hossan",
+  shortName: "Sabbir",
   displayName: "S4BBIR",
   role: "Creative Developer",
   tagline: "AI × SOFTWARE × DIGITAL EXPERIENCES",
-  email: "sabbir.hossan@example.com",
+  email: "mdsabbirdoit@gmail.com",
   github: "https://github.com/s4bbir",
-  linkedin: "https://linkedin.com/in/s4bbir",
+  linkedin: "https://www.linkedin.com/in/mdsabbirhossan/",
+  facebook: "https://www.facebook.com/mdsabbirhossan350/",
   location: "Dhaka, Bangladesh",
   locationShort: "BD",
   year: "2026",
@@ -29,14 +31,14 @@ export const siteConfig = {
 export const socialLinks: SocialLink[] = [
   { label: "GitHub", href: siteConfig.github, icon: "github" },
   { label: "LinkedIn", href: siteConfig.linkedin, icon: "linkedin" },
+  { label: "Facebook", href: siteConfig.facebook, icon: "facebook" },
   { label: "Email", href: `mailto:${siteConfig.email}`, icon: "email" },
 ];
 
 export const navigation: NavItem[] = [
-  { label: "S4BBIR", href: "#hero" },
-  { label: "ABOUT", href: "#about" },
-  { label: "PROJECTS", href: "#projects" },
-  { label: "CONTACT", href: "#contact" },
+  { label: "ABOUT", href: "/#about" },
+  { label: "PROJECTS", href: "/#projects" },
+  { label: "CONTACT", href: "/#contact" },
 ];
 
 export const sections: Section[] = [

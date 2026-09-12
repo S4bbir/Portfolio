@@ -68,7 +68,7 @@ export function LoadingScreen({ onComplete }: LoadingScreenProps) {
       {phase === "system" && (
         <div className="text-center">
           <p className="section-label mb-2">SYSTEM</p>
-          <p className="font-display text-3xl tracking-wider">{siteConfig.displayName}</p>
+          <p className="font-display text-3xl tracking-wider">{siteConfig.shortName}</p>
         </div>
       )}
       {(phase === "progress" || phase === "done") && (

@@ -1,57 +1,8 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import { gsap, registerGSAP } from "@/lib/animations/gsap";
 import { education, experience } from "@/config/site";
-import { useReducedMotion } from "@/lib/hooks/useReducedMotion";
 
 export function Journey() {
-  const sectionRef = useRef<HTMLElement>(null);
-  const lineRef = useRef<HTMLDivElement>(null);
-  const reducedMotion = useReducedMotion();
-
-  useEffect(() => {
-    if (reducedMotion || !sectionRef.current) return;
-
-    registerGSAP();
-    const entries = sectionRef.current.querySelectorAll(".timeline-entry");
-
-    if (lineRef.current) {
-      gsap.fromTo(
-        lineRef.current,
-        { scaleY: 0 },
-        {
-          scaleY: 1,
-          ease: "none",
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: "top 60%",
-            end: "bottom 40%",
-            scrub: true,
-          },
-        }
-      );
-    }
-
-    entries.forEach((entry) => {
-      gsap.fromTo(
-        entry,
-        { x: -30, opacity: 0 },
-        {
-          x: 0,
-          opacity: 1,
-          duration: 0.8,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: entry,
-            start: "top 85%",
-            toggleActions: "play none none reverse",
-          },
-        }
-      );
-    });
-  }, [reducedMotion]);
-
   const allEntries = [
     ...education.map((e) => ({ ...e, type: "education" as const })),
     ...experience.map((e) => ({ ...e, type: "experience" as const })),
@@ -60,23 +11,32 @@ export function Journey() {
   return (
     <section
       id="journey"
-      ref={sectionRef}
       className="relative px-6 py-32 md:px-16 lg:px-24"
       aria-labelledby="journey-heading"
     >
       <div className="mx-auto max-w-3xl">
-        <p className="section-label mb-4">05 / JOURNEY</p>
-        <h2 id="journey-heading" className="font-display mb-16 text-4xl md:text-6xl">
-          TIMELINE
+        <p className="section-label mb-4" data-reveal>
+          05 / JOURNEY
+        </p>
+        <h2
+          id="journey-heading"
+          className="font-display mb-16 text-4xl md:text-6xl"
+          data-chars
+        >
+          {"TIMELINE".split("").map((char, i) => (
+            <span key={i} className="inline-block overflow-hidden">
+              <span className="char inline-block">{char}</span>
+            </span>
+          ))}
         </h2>
 
         <div className="relative pl-8">
           <div
-            ref={lineRef}
+            data-line
             className="absolute top-0 left-3 h-full w-px origin-top bg-gradient-to-b from-accent-blue to-text-muted/30"
           />
 
-          <div className="space-y-12">
+          <div className="space-y-12" data-stagger>
             {allEntries.map((entry, i) => (
               <div key={i} className="timeline-entry relative">
                 <div className="absolute -left-5 top-1 h-2 w-2 rounded-full bg-accent-blue" />

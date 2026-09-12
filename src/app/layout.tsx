@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import { siteConfig } from "@/config/site";
+import { AppProviders } from "@/components/providers/AppProviders";
 import "./globals.css";
 
 const inter = Inter({
@@ -16,17 +17,17 @@ const playfair = Playfair_Display({
 });
 
 export const metadata: Metadata = {
-  title: `${siteConfig.displayName} — Creative Developer`,
+  title: siteConfig.shortName,
   description: siteConfig.description,
   openGraph: {
-    title: `${siteConfig.displayName} — Creative Developer`,
+    title: siteConfig.shortName,
     description: siteConfig.description,
     type: "website",
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: `${siteConfig.displayName} — Creative Developer`,
+    title: siteConfig.shortName,
     description: siteConfig.description,
   },
   icons: {
@@ -44,7 +45,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={`${inter.variable} ${playfair.variable} h-full`}>
       <body className="min-h-full antialiased bg-bg-primary text-text-primary">
-        {children}
+        <AppProviders>{children}</AppProviders>
       </body>
     </html>
   );

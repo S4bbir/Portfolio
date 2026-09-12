@@ -1,7 +1,6 @@
 "use client";
 
 import { SkillOrbit } from "./SkillOrbit";
-import { SplitText } from "@/components/ui/SplitText";
 
 export function Skills() {
   return (
@@ -11,13 +10,23 @@ export function Skills() {
       aria-labelledby="skills-heading"
     >
       <div className="mx-auto max-w-6xl">
-        <p className="section-label mb-4">04 / STACK</p>
-        <SplitText
-          text="TOOLS I BUILD WITH"
-          as="h2"
+        <p className="section-label mb-4" data-reveal>
+          04 / STACK
+        </p>
+        <h2
+          id="skills-heading"
           className="font-display mb-16 text-4xl md:text-6xl"
-        />
-        <SkillOrbit />
+          data-chars
+        >
+          {"TOOLS I BUILD WITH".split("").map((char, i) => (
+            <span key={i} className="inline-block overflow-hidden">
+              <span className="char inline-block">{char === " " ? "\u00A0" : char}</span>
+            </span>
+          ))}
+        </h2>
+        <div data-reveal>
+          <SkillOrbit />
+        </div>
       </div>
     </section>
   );

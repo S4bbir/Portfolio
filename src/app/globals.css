@@ -164,17 +164,68 @@ body {
 }
 
 .experiment-card {
-  transition: transform 0.5s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  transform-style: preserve-3d;
+  transition: transform 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 }
 
-.experiment-card:hover {
-  transform: scale(1.02);
+.orbit-ring-slow {
+  animation: spin-slow 40s linear infinite;
+}
+
+@keyframes spin-slow {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .scroll-line {
   width: 1px;
   background: linear-gradient(to bottom, var(--accent-blue), transparent);
   transform-origin: top;
+}
+
+.char {
+  will-change: transform;
+}
+
+.motion-root {
+  perspective: 1200px;
+}
+
+.marquee-track {
+  animation: marquee 28s linear infinite;
+}
+
+@keyframes marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-25%);
+  }
+}
+
+.orbit-ring {
+  animation: pulse-ring 6s ease-in-out infinite;
+}
+
+@keyframes pulse-ring {
+  0%,
+  100% {
+    opacity: 0.4;
+    transform: scale(1);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.03);
+  }
+}
+
+.orbit-ring {
+  animation: pulse-ring 6s ease-in-out infinite;
 }
 
 .sr-only {

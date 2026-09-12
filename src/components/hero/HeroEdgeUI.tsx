@@ -25,7 +25,7 @@ export function HeroEdgeUI({ visible }: { visible: boolean }) {
           visible ? "opacity-100" : "opacity-0"
         }`}
       >
-        <span className="font-display text-lg text-text-muted">S</span>
+        <span className="font-display text-lg text-text-muted">{siteConfig.shortName}</span>
       </div>
 
       <div
